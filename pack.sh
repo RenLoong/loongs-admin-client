@@ -133,7 +133,7 @@ if [[ "$SKIP_WEB" -eq 0 ]]; then
       "$PUBLIC_WEB/assets" || true
   fi
   if [[ -f "$CLIENT_ROOT/tools/reorganize_web_js.py" ]]; then
-    step "Reorganize web JS -> js/ + domain.js"
+    step "Reorganize web JS -> js/ + spa.html (ClientEntry injects API base)"
     python3 "$CLIENT_ROOT/tools/reorganize_web_js.py" "$PUBLIC_WEB" "$API_BASE_URL"
   fi
   echo "OK public/web"

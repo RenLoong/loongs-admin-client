@@ -40,8 +40,13 @@
 
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
+
+    Packed builds: ClientEntry.php replaces <!--LOONGS_API_BASE_INJECT--> with
+    window.__LOONGS_API_BASE_URL__ from OAUTH_ALLOWED_ORIGINS (first origin).
+    Local `flutter run` keeps dart-define / {host} fallback when the marker
+    is left as a comment (no runtime override).
   -->
-  <script src="domain.js"></script>
+  <!--LOONGS_API_BASE_INJECT-->
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

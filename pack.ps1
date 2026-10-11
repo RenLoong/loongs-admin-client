@@ -139,7 +139,7 @@ try {
         }
         $reorg = Join-Path $ClientRoot 'tools\reorganize_web_js.py'
         if (Test-Path $reorg) {
-            Write-Step "Reorganize web JS -> js/ + domain.js"
+            Write-Step "Reorganize web JS -> js/ + spa.html (ClientEntry injects API base)"
             $py = Get-Command python -ErrorAction SilentlyContinue
             if (-not $py) { $py = Get-Command python3 -ErrorAction SilentlyContinue }
             if (-not $py) { throw "python/python3 required for reorganize_web_js.py" }
