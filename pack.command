@@ -88,6 +88,10 @@ if [[ "$SKIP_WEB" -eq 0 ]]; then
       "$CLIENT_ROOT/build/web/assets" \
       "$PUBLIC_WEB/assets" || true
   fi
+  if [[ -f "$CLIENT_ROOT/tools/reorganize_web_js.py" ]]; then
+    step "Reorganize web JS -> js/ + domain.js"
+    python3 "$CLIENT_ROOT/tools/reorganize_web_js.py" "$PUBLIC_WEB" "$API_BASE_URL"
+  fi
   echo "OK public/web"
 else
   echo "Skip web"

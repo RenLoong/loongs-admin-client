@@ -13,7 +13,7 @@ final secureStorageProvider = Provider<FlutterSecureStorage>(
 /// Current backend base URL (defaults to --dart-define API_BASE_URL).
 class BaseUrlNotifier extends Notifier<String> {
   @override
-  String build() => resolveBaseUrl(kDefaultApiBaseUrl, pageHost: kIsWeb ? Uri.base.host : null);
+  String build() => effectiveApiBaseUrl(pageHost: kIsWeb ? Uri.base.host : null);
 
   void set(String value) => state = value;
 }

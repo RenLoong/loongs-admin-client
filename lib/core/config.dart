@@ -1,3 +1,5 @@
+import 'api_base.dart';
+
 /// Backend base URL. Override at build/run time:
 ///   flutter run -d chrome --dart-define=API_BASE_URL=http://192.168.1.10:21000
 /// Web builds may use `{host}` (the host the page was loaded from), so one build serves every
@@ -23,6 +25,14 @@ String resolveBaseUrl(String configured, {String? pageHost}) {
   var h = (pageHost == null || pageHost.isEmpty) ? '127.0.0.1' : pageHost;
   if (h.contains(':') && !h.startsWith('[')) h = '[$h]'; // IPv6 literal
   return configured.replaceAll('{host}', h);
+}
+
+/// Prefer runtime `domain.js` (`window.__LOONGS_API_BASE_URL__`) on web; else dart-define.
+String effectiveApiBaseUrl({String? pageHost}) {
+  final runtime = readRuntimeApiBaseUrl();
+  final configured =
+      (runtime != null && runtime.isNotEmpty) ? runtime : kDefaultApiBaseUrl;
+  return resolveBaseUrl(configured, pageHost: pageHost);
 }
 
 /// Effective web token storage mode for [configured] (see [kWebTokenStorage]).

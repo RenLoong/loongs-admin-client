@@ -137,6 +137,15 @@ try {
                 & $py.Source $fixer (Join-Path $buildWeb 'assets') (Join-Path $PublicWeb 'assets')
             }
         }
+        $reorg = Join-Path $ClientRoot 'tools\reorganize_web_js.py'
+        if (Test-Path $reorg) {
+            Write-Step "Reorganize web JS -> js/ + domain.js"
+            $py = Get-Command python -ErrorAction SilentlyContinue
+            if (-not $py) { $py = Get-Command python3 -ErrorAction SilentlyContinue }
+            if (-not $py) { throw "python/python3 required for reorganize_web_js.py" }
+            & $py.Source $reorg $PublicWeb $ApiBaseUrl
+            if ($LASTEXITCODE -ne 0) { throw "reorganize_web_js.py failed ($LASTEXITCODE)" }
+        }
         Write-Host "OK public/web"
     } else {
         Write-Host "Skip web"
